@@ -1,0 +1,1 @@
+#define TOOLTIP_GROUND_ITEM
