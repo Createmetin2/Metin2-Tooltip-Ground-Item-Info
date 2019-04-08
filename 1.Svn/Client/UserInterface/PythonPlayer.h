@@ -1,4 +1,22 @@
 //Find
+			MODE_USE_SKILL,
+		
+///Add
+		#ifdef TOOLTIP_GROUND_ITEM
+			MODE_CLICK_ITEM_RIGHT,
+		#endif
+		
+//Find
+		void	__ReserveClickItem(DWORD dwItemID);
+		
+///Change
+#ifdef TOOLTIP_GROUND_ITEM
+		void	__ReserveClickItem(DWORD dwItemID, bool rclick = false);
+#else
+		void	__ReserveClickItem(DWORD dwItemID);
+#endif
+
+//Find
 		void	SendClickItemPacket(DWORD dwIID);
 	
 ///Change
