@@ -3,7 +3,7 @@
 		
 ///Add
 #ifdef TOOLTIP_GROUND_ITEM
-		void SetSocAttr(std::vector<long> socket, std::vector<BYTE> attrtypes, std::vector<short> attrvalss);
+		void SetSocAttr(const std::vector<long>& socket, const std::vector<BYTE>& attrtypes, const std::vector<short>& attrvals);
 		long GetSockets(int i) {return sockets[i];};
 		BYTE GetAttrType(int i) {return attrtype[i];};
 		short GetAttrVal(int i) {return attrval[i];};

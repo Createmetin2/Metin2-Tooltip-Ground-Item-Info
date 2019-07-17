@@ -6,7 +6,7 @@ void CItemData::SetItemTableData(TItemTable * pItemTable)
 
 ///Add
 #ifdef TOOLTIP_GROUND_ITEM
-void CItemData::SetSocAttr(std::vector<long> socket, std::vector<BYTE> attrtypes, std::vector<short> attrvals)
+void CItemData::SetSocAttr(const std::vector<long>& socket, const std::vector<BYTE>& attrtypes, const std::vector<short>& attrvals)
 {
 	sockets.clear();
 	attrtype.clear();
