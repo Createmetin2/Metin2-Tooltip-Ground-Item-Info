@@ -1,8 +1,4 @@
 # Metin2-Tooltip-Ground-Item-Info
 **Coded by:blackdragonx61** aka **Mali61**
 
-**V1.1 Log: For Fix Changed Files =>**
-
-# PythonPlayerInput.cpp
-# PythonPlayerInputMouse.cpp
-# PythonPlayer.h
+[![](https://i9.ytimg.com/vi/19YASexhM6g/mq2.jpg?sqp=CPDvvOkF&rs=AOn4CLCcefUjeUeJG5-ReL6gBwFOpF3vlQ)](https://www.youtube.com/watch?v=19YASexhM6g&feature=youtu.be)
