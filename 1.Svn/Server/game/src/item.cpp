@@ -3,7 +3,6 @@
 	
 ///Add
 #ifdef TOOLTIP_GROUND_ITEM
-	for (int i = 0; i < ITEM_SOCKET_MAX_NUM; ++i)
-		pack.alSockets[i] = m_alSockets[i];
+	thecore_memcpy(pack.alSockets, m_alSockets, sizeof(pack.alSockets));
 	thecore_memcpy(pack.aAttr, GetAttributes(), sizeof(pack.aAttr));
 #endif
