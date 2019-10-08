@@ -43,10 +43,7 @@ void CPythonPlayer::__ReserveClickItem(DWORD dwItemID)
 	
 ///Change
 #ifdef TOOLTIP_GROUND_ITEM
-	if (rclick)
-		m_eReservedMode=MODE_CLICK_ITEM_RIGHT;
-	else
-		m_eReservedMode=MODE_CLICK_ITEM;
+	m_eReservedMode = rclick ? MODE_CLICK_ITEM_RIGHT : MODE_CLICK_ITEM;
 #else
 	m_eReservedMode=MODE_CLICK_ITEM;
 #endif
