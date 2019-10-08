@@ -2,9 +2,9 @@
 			MODE_USE_SKILL,
 		
 ///Add
-		#ifdef TOOLTIP_GROUND_ITEM
+#ifdef TOOLTIP_GROUND_ITEM
 			MODE_CLICK_ITEM_RIGHT,
-		#endif
+#endif
 		
 //Find
 		void	__ReserveClickItem(DWORD dwItemID);
@@ -20,19 +20,19 @@
 		void	SendClickItemPacket(DWORD dwIID);
 	
 ///Change
-	#ifdef TOOLTIP_GROUND_ITEM
+#ifdef TOOLTIP_GROUND_ITEM
 		void	ClickRight(int eMBT);
 		void	SendClickItemPacket(DWORD dwIID, bool rclick = false);
-	#else
+#else
 		void	SendClickItemPacket(DWORD dwIID);
-	#endif
+#endif
 	
 //Find
 		void	__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID);
 	
 ///Change
-	#ifdef TOOLTIP_GROUND_ITEM
+#ifdef TOOLTIP_GROUND_ITEM
 		void	__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID, bool rclick = false);
-	#else
+#else
 		void	__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID);
-	#endif
+#endif
