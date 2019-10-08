@@ -11,7 +11,6 @@ void CItemData::SetSocAttr(const std::vector<long>& socket, const std::vector<BY
 	sockets.clear();
 	attrtype.clear();
 	attrval.clear();
-
 	sockets = socket;
 	attrtype = attrtypes;
 	attrval = attrvals;
@@ -23,7 +22,7 @@ void CItemData::SetSocAttr(const std::vector<long>& socket, const std::vector<BY
 	
 ///Add
 #ifdef TOOLTIP_GROUND_ITEM
-	memset(&sockets, 0, sizeof(sockets));
-	memset(&attrtype, 0, sizeof(attrtype));
-	memset(&attrval, 0, sizeof(attrval));
+	sockets.clear();
+	attrtype.clear();
+	attrval.clear();
 #endif	
