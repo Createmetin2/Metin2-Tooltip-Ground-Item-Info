@@ -5,4 +5,5 @@
 #ifdef TOOLTIP_GROUND_ITEM
 	thecore_memcpy(pack.alSockets, m_alSockets, sizeof(pack.alSockets));
 	thecore_memcpy(pack.aAttr, GetAttributes(), sizeof(pack.aAttr));
+	pack.ItemID = GetID();
 #endif

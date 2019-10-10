@@ -5,4 +5,5 @@
 #ifdef TOOLTIP_GROUND_ITEM
 	long	alSockets[ITEM_SOCKET_MAX_NUM];
 	TPlayerItemAttribute aAttr[ITEM_ATTRIBUTE_MAX_NUM];
+	DWORD ItemID;
 #endif
