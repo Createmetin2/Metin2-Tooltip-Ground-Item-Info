@@ -1,5 +1,5 @@
 #Find in: def __init__(self, stream):
-		self.pressNumber = None
+		self.affectShower = None
 		
 #Add
 		if app.TOOLTIP_GROUND_ITEM:
@@ -40,7 +40,7 @@
 		def ShowItemFromClient(self, open, itemvnum = 0, metinslot = 0, attrtype = 0, attrval = 0, id = 0):
 			import uiToolTip
 			if self.tlground:
-				if open and self.TooltipGroundItemId = id: # check if same item
+				if open and self.TooltipGroundItemId == id:
 					return
 				else:
 					self.tlground.Hide()
