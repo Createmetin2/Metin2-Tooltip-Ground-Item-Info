@@ -1,4 +1,4 @@
-#Find
+#Find in: def __init__(self, stream):
 		self.pressNumber = None
 		
 #Add
@@ -7,14 +7,25 @@
 			self.xTooltipGroundItemStart = 0
 			self.yTooltipGroundItemStart = 0
 			
+#Find in: def Close(self):
+		self.affectShower = None
+		
+#Add
+		if app.TOOLTIP_GROUND_ITEM:
+			if self.tlground: 
+				self.tlground.Hide()
+				self.tlground = None
+			self.xTooltipGroundItemStart = 0
+			self.yTooltipGroundItemStart = 0
+			
 #Find
 		self.interface.BUILD_OnUpdate()
 		
 #Add
-		if app.TOOLTIP_GROUND_ITEM:
-			TOOLTIP_INFO_LIMIT_RANGE = 500
+		if app.TOOLTIP_GROUND_ITEM and self.tlground:
+			TOOLTIP_INFO_LIMIT_RANGE = 500 # change
 			(x, y, z) = player.GetMainCharacterPosition()
-			if self.tlground and (abs(x - self.xTooltipGroundItemStart) > TOOLTIP_INFO_LIMIT_RANGE or abs(y - self.yTooltipGroundItemStart) > TOOLTIP_INFO_LIMIT_RANGE):
+			if abs(x - self.xTooltipGroundItemStart) > TOOLTIP_INFO_LIMIT_RANGE or abs(y - self.yTooltipGroundItemStart) > TOOLTIP_INFO_LIMIT_RANGE:
 				self.tlground.Hide()
 				self.tlground = None
 #Find
