@@ -2,7 +2,7 @@
 void CPythonPlayer::__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID)
 
 ///Change
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 void CPythonPlayer::__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID, bool rclick)
 #else
 void CPythonPlayer::__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID)
@@ -13,7 +13,7 @@ void CPythonPlayer::__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemI
 	
 ///Change
 	__ReserveClickItem(dwPickedItemID
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 		,rclick
 #endif
 	);
@@ -22,7 +22,7 @@ void CPythonPlayer::__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemI
 	SendClickItemPacket(dwPickedItemID);
 	
 ///Change
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 	SendClickItemPacket(dwPickedItemID, rclick);
 #else
 	SendClickItemPacket(dwPickedItemID);
@@ -32,7 +32,7 @@ void CPythonPlayer::__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemI
 void CPythonPlayer::__ReserveClickItem(DWORD dwItemID)
 
 ///Change
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 void CPythonPlayer::__ReserveClickItem(DWORD dwItemID, bool rclick)
 #else
 void CPythonPlayer::__ReserveClickItem(DWORD dwItemID)
@@ -42,7 +42,7 @@ void CPythonPlayer::__ReserveClickItem(DWORD dwItemID)
 	m_eReservedMode=MODE_CLICK_ITEM;
 	
 ///Change
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 	m_eReservedMode = rclick ? MODE_CLICK_ITEM_RIGHT : MODE_CLICK_ITEM;
 #else
 	m_eReservedMode=MODE_CLICK_ITEM;

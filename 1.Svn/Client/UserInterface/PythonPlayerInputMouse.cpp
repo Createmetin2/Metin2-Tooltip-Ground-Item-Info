@@ -5,12 +5,12 @@ bool CPythonPlayer::NEW_SetMouseState(int eMBT, int eMBS)
 		return false;
 	
 ///Add
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 	ClickRight(eMBT);
 #endif
 
 ///Add anywhere
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 void CPythonPlayer::ClickRight(int eMBT)
 {
 	CInstanceBase* pkInstMain=NEW_GetMainActorPtr();
@@ -29,7 +29,7 @@ void CPythonPlayer::ClickRight(int eMBT)
 	{
 		
 ///Add new case
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 		case MODE_CLICK_ITEM_RIGHT:
 		{
 			CPythonItem& rkIT=CPythonItem::Instance();

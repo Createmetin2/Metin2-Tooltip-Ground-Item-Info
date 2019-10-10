@@ -5,7 +5,7 @@ void CItemData::SetItemTableData(TItemTable * pItemTable)
 }
 
 ///Add
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 void CItemData::SetSocAttr(const std::vector<long>& socket, const std::vector<BYTE>& attrtypes, const std::vector<short>& attrvals)
 {
 	sockets.clear();
@@ -21,7 +21,7 @@ void CItemData::SetSocAttr(const std::vector<long>& socket, const std::vector<BY
 	memset(&m_ItemTable, 0, sizeof(m_ItemTable));
 	
 ///Add
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 	sockets.clear();
 	attrtype.clear();
 	attrval.clear();

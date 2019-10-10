@@ -4,9 +4,8 @@
 		s_dwNextTCPTime=dwCurTime + 500;
 		
 ///Add
-#ifdef TOOLTIP_GROUND_ITEM
-		if (rclick) 
-		{
+#if defined(TOOLTIP_GROUND_ITEM)
+		if (rclick) {
 			CItemData * pItemData;
 			if (!CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData)) {
 				Tracenf("CPythonPlayer::SendClickItemPacket(dwIID=%d) : Non-exist item.", dwIID);
@@ -22,7 +21,7 @@
 				PyTuple_SetItem(attrval, i, PyInt_FromLong(pItemData->GetAttrVal(i)));
 			}
 			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, sockets, attrtype, attrval, dwIID));
-			for (auto& del : { sockets, attrtype, attrval })
+			for (auto& del : { sockets, attrtype, attrval })	
 				Py_DECREF(del);
 			return;
 		}
@@ -32,7 +31,7 @@
 void CPythonPlayer::SendClickItemPacket(DWORD dwIID)
 
 ///Change
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 void CPythonPlayer::SendClickItemPacket(DWORD dwIID, bool rclick)
 #else
 void CPythonPlayer::SendClickItemPacket(DWORD dwIID)	

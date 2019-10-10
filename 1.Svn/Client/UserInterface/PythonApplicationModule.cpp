@@ -6,7 +6,7 @@
 #endif
 
 ///Add
-#ifdef TOOLTIP_GROUND_ITEM
+#if defined(TOOLTIP_GROUND_ITEM)
 	PyModule_AddIntConstant(poModule, "TOOLTIP_GROUND_ITEM",	true);
 #else
 	PyModule_AddIntConstant(poModule, "TOOLTIP_GROUND_ITEM",	false);
