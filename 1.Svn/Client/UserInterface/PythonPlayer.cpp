@@ -21,7 +21,7 @@
 				PyTuple_SetItem(attrtype, i, PyInt_FromLong(pItemData->GetAttrType(i)));
 				PyTuple_SetItem(attrval, i, PyInt_FromLong(pItemData->GetAttrVal(i)));
 			}
-			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, sockets, attrtype, attrval, pItemData->GetItemId()));
+			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, sockets, attrtype, attrval, dwIID));
 			for (auto& del : { sockets, attrtype, attrval })
 				Py_DECREF(del);
 			return;
