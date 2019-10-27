@@ -15,8 +15,8 @@
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		void RegisterItemToolTipInfo(unsigned long& id, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple);
-		bool GetSocketsAndAttr(unsigned long& id, std::vector<long>& soc, std::vector< TPlayerItemAttribute >& att);
+		void RegisterItemToolTipInfo(const unsigned long& id, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple);
+		bool GetSocketsAndAttr(const unsigned long& id, std::vector<long>& soc, std::vector< TPlayerItemAttribute >& att);
 #endif
 
 //Find
