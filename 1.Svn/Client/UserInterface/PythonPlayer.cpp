@@ -12,13 +12,13 @@
 				return;
 			PyObject* sockets = PyTuple_New(ITEM_SOCKET_SLOT_MAX_NUM);
 			std::array< PyObject*, 2> attr;
-			for (int i = 0; i < attr.size(); i++)
-				attr[i] = PyTuple_New(ITEM_ATTRIBUTE_SLOT_MAX_NUM);
+			for (size_t i = 0; i < attr.size(); i++)
+				attr.at(i) = PyTuple_New(ITEM_ATTRIBUTE_SLOT_MAX_NUM);
 			for (size_t i = 0; i< allsockets.size(); i++)
 				PyTuple_SetItem(sockets, i, PyInt_FromLong(allsockets.at(i)));
 			for (size_t i = 0; i < allattr.size(); i++) {
-				PyTuple_SetItem(attr[0], i, PyInt_FromLong(allattr.at(i).bType));
-				PyTuple_SetItem(attr[1], i, PyInt_FromLong(allattr.at(i).sValue));
+				PyTuple_SetItem(attr.at(0), i, PyInt_FromLong(allattr.at(i).bType));
+				PyTuple_SetItem(attr.at(1), i, PyInt_FromLong(allattr.at(i).sValue));
 			}
 			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, sockets, attr[0], attr[1], dwIID));
 			return;
