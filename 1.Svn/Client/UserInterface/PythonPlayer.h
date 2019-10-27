@@ -10,17 +10,17 @@
 		void	__ReserveClickItem(DWORD dwItemID);
 		
 ///Change
+		void	__ReserveClickItem(DWORD dwItemID
 #if defined(TOOLTIP_GROUND_ITEM)
-		void	__ReserveClickItem(DWORD dwItemID, bool rclick = false);
-#else
-		void	__ReserveClickItem(DWORD dwItemID);
+		,bool rclick = false
 #endif
+		);
 
 //Find
 		void	SendClickItemPacket(DWORD dwIID);
 	
 ///Change
-#if defined(TOOLTIP_GROUND_ITEM)
+#ifdef TOOLTIP_GROUND_ITEM
 		void	ClickRight(int eMBT);
 		void	SendClickItemPacket(DWORD dwIID, bool rclick = false);
 #else
@@ -31,8 +31,8 @@
 		void	__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID);
 	
 ///Change
+		void	__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID
 #if defined(TOOLTIP_GROUND_ITEM)
-		void	__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID, bool rclick = false);
-#else
-		void	__OnPressItem(CInstanceBase& rkInstMain, DWORD dwPickedItemID);
+		,bool rclick = false
 #endif
+		);

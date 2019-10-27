@@ -6,23 +6,21 @@
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
 		if (rclick) {
-			CItemData * pItemData;
-			if (!CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData)) {
-				Tracenf("CPythonPlayer::SendClickItemPacket(dwIID=%d) : Non-exist item.", dwIID);
+			CItemData* pItemData;
+			std::vector<long> allsockets; std::vector<TPlayerItemAttribute> allattr;
+			if (!CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData) || !CPythonTextTail::instance().GetSocketsAndAttr(dwIID, allsockets, allattr))
 				return;
+			PyObject* sockets = PyTuple_New(ITEM_SOCKET_SLOT_MAX_NUM);
+			std::array< PyObject*, 2> attr;
+			for (int i = 0; i < attr.size(); i++)
+				attr[i] = PyTuple_New(ITEM_ATTRIBUTE_SLOT_MAX_NUM);
+			for (size_t i = 0; i< allsockets.size(); i++)
+				PyTuple_SetItem(sockets, i, PyInt_FromLong(allsockets.at(i)));
+			for (size_t i = 0; i < allattr.size(); i++) {
+				PyTuple_SetItem(attr[0], i, PyInt_FromLong(allattr.at(i).bType));
+				PyTuple_SetItem(attr[1], i, PyInt_FromLong(allattr.at(i).sValue));
 			}
-			PyObject *sockets = PyTuple_New(ITEM_SOCKET_SLOT_MAX_NUM);
-			PyObject *attrtype = PyTuple_New(ITEM_ATTRIBUTE_SLOT_MAX_NUM);
-			PyObject *attrval = PyTuple_New(ITEM_ATTRIBUTE_SLOT_MAX_NUM);
-			for (auto i = 0; i < ITEM_SOCKET_SLOT_MAX_NUM; i++)
-				PyTuple_SetItem(sockets, i, PyInt_FromLong(pItemData->GetSockets(i)));
-			for (auto i = 0; i < ITEM_ATTRIBUTE_SLOT_MAX_NUM; i++) {
-				PyTuple_SetItem(attrtype, i, PyInt_FromLong(pItemData->GetAttrType(i)));
-				PyTuple_SetItem(attrval, i, PyInt_FromLong(pItemData->GetAttrVal(i)));
-			}
-			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, sockets, attrtype, attrval, dwIID));
-			for (auto& del : { sockets, attrtype, attrval })	
-				Py_DECREF(del);
+			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, sockets, attr[0], attr[1], dwIID));
 			return;
 		}
 #endif
@@ -32,6 +30,7 @@ void CPythonPlayer::SendClickItemPacket(DWORD dwIID)
 
 ///Change
 #if defined(TOOLTIP_GROUND_ITEM)
+#include "PythonTextTail.h"
 void CPythonPlayer::SendClickItemPacket(DWORD dwIID, bool rclick)
 #else
 void CPythonPlayer::SendClickItemPacket(DWORD dwIID)	

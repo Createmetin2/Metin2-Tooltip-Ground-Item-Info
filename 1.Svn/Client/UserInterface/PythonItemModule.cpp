@@ -3,7 +3,7 @@
 	
 ///Change
 #if defined(TOOLTIP_GROUND_ITEM)
-	CPythonItem::Instance().CreateItem(iVirtualID, iVirtualNumber, {}, {}, {}, x, y, z, bDrop);
+	CPythonItem::Instance().CreateItem(iVirtualID, iVirtualNumber, {}, x, y, z, bDrop);
 #else
 	CPythonItem::Instance().CreateItem(iVirtualID, iVirtualNumber, x, y, z, bDrop);
 #endif

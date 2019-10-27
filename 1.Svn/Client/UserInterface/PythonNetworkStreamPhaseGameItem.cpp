@@ -2,14 +2,9 @@
 	__GlobalPositionToLocalPosition(packet_item_ground_add.lX, packet_item_ground_add.lY);
 	
 ///Add
-#if defined(TOOLTIP_GROUND_ITEM)
+#ifdef TOOLTIP_GROUND_ITEM
 	std::vector<long> sockets(packet_item_ground_add.alSockets, packet_item_ground_add.alSockets + ITEM_SOCKET_SLOT_MAX_NUM);
-	std::vector<BYTE> attrtype;
-	std::vector<short> attrvals;
-	for (auto i = 0; i < ITEM_ATTRIBUTE_SLOT_MAX_NUM; i++) {
-		attrtype.emplace_back(packet_item_ground_add.aAttr[i].bType);
-		attrvals.emplace_back(packet_item_ground_add.aAttr[i].sValue);
-	}
+	std::vector<TPlayerItemAttribute> attr(packet_item_ground_add.aAttr, packet_item_ground_add.aAttr + ITEM_ATTRIBUTE_SLOT_MAX_NUM);
 #endif
 
 //Find
@@ -22,8 +17,6 @@
 ///Change
 	CPythonItem::Instance().CreateItem(packet_item_ground_add.dwVID,packet_item_ground_add.dwVnum,
 									#if defined(TOOLTIP_GROUND_ITEM)
-										sockets,
-										attrtype,
-										attrvals,
+										std::make_tuple(sockets, attr),
 									#endif
 										packet_item_ground_add.lX,packet_item_ground_add.lY,packet_item_ground_add.lZ);
