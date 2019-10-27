@@ -15,8 +15,8 @@
 void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, float x, float y, float z, bool bDrop)
 
 ///Change
+void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber,
 #if defined(TOOLTIP_GROUND_ITEM)
-void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple, float x, float y, float z, bool bDrop)
-#else
-void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, float x, float y, float z, bool bDrop)
+const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple,
 #endif
+float x, float y, float z, bool bDrop)
