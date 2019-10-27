@@ -2,8 +2,8 @@
 		void	CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, float x, float y, float z, bool bDrop=true);
 		
 ///Change
+		void	CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber,
 #if defined(TOOLTIP_GROUND_ITEM)
-		void	CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple, float x, float y, float z, bool bDrop=true);
-#else
-		void	CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, float x, float y, float z, bool bDrop=true);
+		const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple,
 #endif
+		float x, float y, float z, bool bDrop=true);
