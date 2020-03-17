@@ -11,10 +11,11 @@ bool CPythonPlayer::NEW_SetMouseState(int eMBT, int eMBS)
 
 ///Add anywhere
 #if defined(TOOLTIP_GROUND_ITEM)
-void CPythonPlayer::ClickRight(int eMBT)
+void CPythonPlayer::ClickRight(const int& eMBT)
 {
 	const auto pkInstMain=NEW_GetMainActorPtr();
-	if (!pkInstMain) return;
+	if (!pkInstMain) 
+		return;
 	DWORD dwPickedItemID;
 	if (eMBT == MBT_RIGHT && __GetPickedItemID(&dwPickedItemID))
 		__OnPressItem(*pkInstMain, dwPickedItemID, true);
@@ -32,7 +33,10 @@ void CPythonPlayer::ClickRight(int eMBT)
 		case MODE_CLICK_ITEM_RIGHT: {
 			TPixelPosition kPPosPickedItem;
 			if (CPythonItem::Instance().GetGroundItemPosition(m_dwIIDReserved, &kPPosPickedItem)) {
-				if (pkInstMain->NEW_GetDistanceFromDestPixelPosition(kPPosPickedItem)<20.0f) {
+				float distance = 20.0f;
+				if (pkInstMain->IsMountingHorse() || pkInstMain->IsNewMount())
+					distance = 110.0f;
+				if (pkInstMain->NEW_GetDistanceFromDestPixelPosition(kPPosPickedItem) < distance) {
 					TPixelPosition kPPosCur;
 					pkInstMain->NEW_GetPixelPosition(&kPPosCur);
 					CPythonNetworkStream::Instance().SendCharacterStatePacket(kPPosCur, pkInstMain->GetRotation(), CInstanceBase::FUNC_WAIT, 0);
