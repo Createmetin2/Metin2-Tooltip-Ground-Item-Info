@@ -1,16 +1,15 @@
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-void CPythonTextTail::RegisterItemToolTipInfo(const unsigned long& id, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple)
+void CPythonTextTail::RegisterItemToolTipInfo(const DWORD& id, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple)
 {
-	ItemTooltipMap[id] = {std::get<0>(tooltiptuple), std::get<1>(tooltiptuple)};
+	ItemTooltipMap[id] = tooltiptuple;
 }
-bool CPythonTextTail::GetSocketsAndAttr(const unsigned long& id, std::vector<long>& soc, std::vector< TPlayerItemAttribute >& att)
+bool CPythonTextTail::GetSocketsAndAttr(const DWORD& id, std::tuple<std::vector<long>, std::vector<TPlayerItemAttribute>>& ItemTuple)
 {
 	if (ItemTooltipMap.find(id) == ItemTooltipMap.end())
 		return false;
-	
-	soc = ItemTooltipMap.at(id).sockets;
-	att = ItemTooltipMap.at(id).attr;
+
+	ItemTuple = ItemTooltipMap.at(id);
 	return true;
 }
 #endif

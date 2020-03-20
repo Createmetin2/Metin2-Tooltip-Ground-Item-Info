@@ -1,22 +1,10 @@
 //Find
-		typedef TTextTailMap					TChatTailMap;
-		
-///Add
-#if defined(TOOLTIP_GROUND_ITEM)
-		struct _TooltipInfo
-		{
-			std::vector<long> sockets;
-			std::vector<TPlayerItemAttribute> attr;
-		};
-#endif
-
-//Find
 		void ShowItemTextTail(DWORD VirtualID);
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		void RegisterItemToolTipInfo(const unsigned long& id, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple);
-		bool GetSocketsAndAttr(const unsigned long& id, std::vector<long>& soc, std::vector< TPlayerItemAttribute >& att);
+		void RegisterItemToolTipInfo(const DWORD& id, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple);
+		bool GetSocketsAndAttr(const DWORD& id, std::tuple<std::vector<long>, std::vector<TPlayerItemAttribute>>& ItemTuple);
 #endif
 
 //Find
@@ -24,5 +12,5 @@
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		std::map<unsigned long, _TooltipInfo> ItemTooltipMap;
+		std::map<DWORD, std::tuple<std::vector<long>, std::vector<TPlayerItemAttribute>>> ItemTooltipMap;
 #endif
