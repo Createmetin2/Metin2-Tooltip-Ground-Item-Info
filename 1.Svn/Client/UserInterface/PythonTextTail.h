@@ -3,8 +3,8 @@
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		void RegisterItemToolTipInfo(const DWORD& id, const std::tuple<const std::vector<long>, const std::vector<TPlayerItemAttribute>>& tooltiptuple);
-		bool GetSocketsAndAttr(const DWORD& id, std::tuple<std::vector<long>, std::vector<TPlayerItemAttribute>>& ItemTuple);
+		void RegisterItemToolTipInfo(const DWORD& id, const std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>>& TooltipData);
+		bool GetSocketsAndAttr(const DWORD& id, std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>>& TooltipData);
 #endif
 
 //Find
@@ -12,5 +12,5 @@
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		std::map<DWORD, std::tuple<std::vector<long>, std::vector<TPlayerItemAttribute>>> ItemTooltipMap;
+		std::map<DWORD, std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>>> ItemTooltipMap;
 #endif

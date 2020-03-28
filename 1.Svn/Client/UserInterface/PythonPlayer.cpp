@@ -5,32 +5,31 @@
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		if (rclick) {	
-			std::tuple<std::vector<long>, std::vector<TPlayerItemAttribute>> ItemTuple;
+		if (rclick) {
+			std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>> TooltipItemData;
 			CItemData* pItemData;
-			if (!CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData) || !CPythonTextTail::instance().GetSocketsAndAttr(dwIID, ItemTuple))
-				return;	
+			if (!CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData) || !CPythonTextTail::instance().GetSocketsAndAttr(dwIID, TooltipItemData))
+				return;
 
-			const auto sockets = PyTuple_New(static_cast<Py_ssize_t>(ITEM_SOCKET_SLOT_MAX_NUM));
-			const auto& _sockets = std::get<0>(ItemTuple);
+			enum { T_SOCKET, T_TYPE, T_VALUE };
+			static const std::vector<PyObject*> _TDATA {
+				PyTuple_New(static_cast<Py_ssize_t>(ITEM_SOCKET_SLOT_MAX_NUM)), // socket
+				PyTuple_New(static_cast<Py_ssize_t>(ITEM_ATTRIBUTE_SLOT_MAX_NUM)), // attr type
+				PyTuple_New(static_cast<Py_ssize_t>(ITEM_ATTRIBUTE_SLOT_MAX_NUM)) // // attr val
+			};
+
+			const auto& _sockets(TooltipItemData.first);
+			const auto& _attr(TooltipItemData.second);
+
 			for (size_t i = 0; i < _sockets.size(); i++)
-				PyTuple_SetItem(sockets, i, PyInt_FromLong(_sockets.at(i)));
+				PyTuple_SetItem(_TDATA[T_SOCKET], i, PyInt_FromLong(_sockets.at(i)));
 
-			std::array< PyObject*, 2> attr;
-			std::generate(std::begin(attr), std::end(attr), []() { return PyTuple_New(static_cast<Py_ssize_t>(ITEM_ATTRIBUTE_SLOT_MAX_NUM)); });
-
-			const auto& _attr = std::get<1>(ItemTuple);
 			for (size_t i = 0; i < _attr.size(); i++) {
-				PyTuple_SetItem(attr.at(0), i, PyInt_FromLong(_attr.at(i).bType));
-				PyTuple_SetItem(attr.at(1), i, PyInt_FromLong(_attr.at(i).sValue));
+				PyTuple_SetItem(_TDATA[T_TYPE], i, PyInt_FromLong(static_cast<long>(_attr.at(i).bType)));
+				PyTuple_SetItem(_TDATA[T_VALUE], i, PyInt_FromLong(static_cast<long>(_attr.at(i).sValue)));
 			}
 
-			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, sockets, attr[0], attr[1], dwIID));
-			
-			for (auto&v : attr)
-				Py_DECREF(v);
-			Py_DECREF(sockets);
-
+			PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiOOOi", TRUE, pItemData->GetTable()->dwVnum, _TDATA[T_SOCKET], _TDATA[T_TYPE], _TDATA[T_VALUE], dwIID));
 			return;
 		}
 #endif
