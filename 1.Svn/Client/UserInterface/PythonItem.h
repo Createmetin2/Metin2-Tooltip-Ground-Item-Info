@@ -4,6 +4,6 @@
 ///Change
 		void	CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber,
 #if defined(TOOLTIP_GROUND_ITEM)
-		const std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>>& TooltipData,
+			const long* socket, const TPlayerItemAttribute* attr,
 #endif
-		float x, float y, float z, bool bDrop=true);
+			float x, float y, float z, bool bDrop = true);

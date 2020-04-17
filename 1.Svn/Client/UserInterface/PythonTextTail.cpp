@@ -1,17 +1,23 @@
-///Add
-#if defined(TOOLTIP_GROUND_ITEM)
-void CPythonTextTail::RegisterItemToolTipInfo(const DWORD& id, const std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>>& TooltipData)
-{
-	ItemTooltipMap[id] = TooltipData;
-}
-bool CPythonTextTail::GetSocketsAndAttr(const DWORD& id, std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>>& TooltipData)
-{
-	if (ItemTooltipMap.find(id) == ItemTooltipMap.end())
-		return false;
+//Find
+void CPythonTextTail::RegisterItemTextTail(DWORD VirtualID, const char * c_szText, CGraphicObjectInstance * pOwner)
 
-	TooltipData = ItemTooltipMap.at(id);
-	return true;
-}
+///Change
+void CPythonTextTail::RegisterItemTextTail(DWORD VirtualID, const char * c_szText, CGraphicObjectInstance * pOwner
+#if defined(TOOLTIP_GROUND_ITEM)
+,const long* socket, const TPlayerItemAttribute* attr
+)
+#endif
+
+//Find
+	m_ItemTextTailMap.insert(TTextTailMap::value_type(VirtualID, pTextTail));
+	
+///Add(endif)
+#if defined(TOOLTIP_GROUND_ITEM)
+	auto old = GetTooltipData(VirtualID);
+	if (old)
+		old.reset(new TooltipData(socket, attr)); // actually impossible
+	else
+		ItemTooltipMap.emplace(VirtualID, std::make_shared<TooltipData>(socket, attr));
 #endif
 
 //Find

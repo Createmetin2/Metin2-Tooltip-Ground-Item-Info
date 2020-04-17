@@ -6,10 +6,12 @@
 		&pGroundItemInstance->ThingInstance
 	);
 	
-///Add
+///Change
+	rkTextTail.RegisterItemTextTail(dwVirtualID,pItemData->GetName(), &pGroundItemInstance->ThingInstance
 #if defined(TOOLTIP_GROUND_ITEM)
-	rkTextTail.RegisterItemToolTipInfo(dwVirtualID, TooltipData);
+		, socket, attr
 #endif
+	);
 
 //Find
 void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, float x, float y, float z, bool bDrop)
@@ -17,6 +19,6 @@ void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, float x, 
 ///Change
 void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber,
 #if defined(TOOLTIP_GROUND_ITEM)
-const std::pair<std::vector<long>, std::vector<TPlayerItemAttribute>>& TooltipData,
+	const long* socket, const TPlayerItemAttribute* attr,
 #endif
-float x, float y, float z, bool bDrop)
+	float x, float y, float z, bool bDrop)
