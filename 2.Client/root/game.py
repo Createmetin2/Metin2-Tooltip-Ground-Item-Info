@@ -4,9 +4,7 @@
 #Add
 		if app.TOOLTIP_GROUND_ITEM:
 			self.tlground = None
-			self.xTooltipGroundItemStart = 0
-			self.yTooltipGroundItemStart = 0
-			self.TooltipGroundItemId = 0
+			self.TooltipData = [0] * 3
 			
 #Find in: def Close(self):
 		self.affectShower = None
@@ -16,9 +14,7 @@
 			if self.tlground: 
 				self.tlground.Hide()
 				self.tlground = None
-			self.xTooltipGroundItemStart = 0
-			self.yTooltipGroundItemStart = 0
-			self.TooltipGroundItemId = 0
+			self.TooltipData = [0] * 3
 			
 #Find
 		self.interface.BUILD_OnUpdate()
@@ -27,9 +23,8 @@
 		if app.TOOLTIP_GROUND_ITEM and self.tlground:
 			TOOLTIP_INFO_LIMIT_RANGE = 500 # change
 			(x, y, z) = player.GetMainCharacterPosition()
-			if abs(x - self.xTooltipGroundItemStart) > TOOLTIP_INFO_LIMIT_RANGE or abs(y - self.yTooltipGroundItemStart) > TOOLTIP_INFO_LIMIT_RANGE:
-				self.tlground.Hide()
-				self.tlground = None
+			if abs(x - self.TooltipData[0]) > TOOLTIP_INFO_LIMIT_RANGE or abs(y - self.TooltipData[1]) > TOOLTIP_INFO_LIMIT_RANGE:
+				self.ShowItemFromClient(False)
 #Find
 	def OnPressExitKey(self):
 		self.interface.ToggleSystemDialog()
@@ -37,21 +32,20 @@
 		
 #Add
 	if app.TOOLTIP_GROUND_ITEM:
-		def ShowItemFromClient(self, open, itemvnum = 0, metinslot = 0, attrtype = 0, attrval = 0, id = 0):
+		def ShowItemFromClient(self, open, itemvnum = 0, data = 0, id = 0):
 			import uiToolTip
 			if self.tlground:
-				if open and self.TooltipGroundItemId == id:
+				if open and self.TooltipData[2] == id:
 					return
 				else:
 					self.tlground.Hide()
 					self.tlground = None
 			if open:
 				pos_x, pos_y = wndMgr.GetMousePosition()
-				(self.xTooltipGroundItemStart, self.yTooltipGroundItemStart, z) = player.GetMainCharacterPosition()
+				(self.TooltipData[0], self.TooltipData[1], z) = player.GetMainCharacterPosition()
 				self.tlground = uiToolTip.ItemToolTip()
-				self.tlground.ClearToolTip()
-				self.TooltipGroundItemId = id
+				self.TooltipData[2] = id
 				attrSlot = []
-				for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):	attrSlot.append([attrtype[i], attrval[i]])
+				for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):	attrSlot.append([data[1][i], data[2][i]])
 				self.tlground.SetToolTipPosition(pos_x + 5, pos_y - 5)
-				self.tlground.AddItemData(itemvnum, metinslot, attrSlot)
+				self.tlground.AddItemData(itemvnum, data[0], attrSlot)
