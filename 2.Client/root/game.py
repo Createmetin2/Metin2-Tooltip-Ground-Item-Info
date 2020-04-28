@@ -41,19 +41,9 @@
 					self.tlground.Hide()
 					self.tlground = None
 			if open:
-				if app.TOOLTIP_GROUND_ITEM:
-		def ShowItemFromClient(self, open, itemvnum = 0, data = 0, id = 0):
-			import uiToolTip
-			if self.tlground:
-				if open and self.TooltipData[2] == id:
-					return
-				else:
-					self.tlground.Hide()
-					self.tlground = None
-			if open:
 				pos_x, pos_y = wndMgr.GetMousePosition()
 				(self.TooltipData[0], self.TooltipData[1], z) = player.GetMainCharacterPosition()
 				self.TooltipData[2] = id
 				self.tlground = uiToolTip.ItemToolTip()
 				self.tlground.SetToolTipPosition(pos_x + 5, pos_y - 5)
-				self.tlground.AddItemData(itemvnum, data[0], data[1])
+				self.tlground.AddItemData(itemvnum, data[0], data[1])	
