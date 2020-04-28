@@ -46,4 +46,4 @@
 				self.TooltipData[2] = id
 				self.tlground = uiToolTip.ItemToolTip()
 				self.tlground.SetToolTipPosition(pos_x + 5, pos_y - 5)
-				self.tlground.AddItemData(itemvnum, data[0], data[1])	
+				self.tlground.AddItemData(itemvnum, data[0], data[1])
