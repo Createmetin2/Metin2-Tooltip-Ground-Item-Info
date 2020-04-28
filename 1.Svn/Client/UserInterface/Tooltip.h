@@ -1,32 +1,29 @@
 #pragma once
-#include <array>
 
 #if defined(TOOLTIP_GROUND_ITEM)
+#include <array>
 class TooltipData
 {
 public:
 	TooltipData(const long* socket, const TPlayerItemAttribute* attr) {
-		Tuple.at(T_SOCKET) = PyTuple_New(ITEM_SOCKET_SLOT_MAX_NUM);
-		for (size_t i = T_TYPE; i <= T_VALUE; i++)
-			Tuple.at(i) = PyTuple_New(ITEM_ATTRIBUTE_SLOT_MAX_NUM);
+		for (size_t i = T_SOCKET; i < T_MAX; i++)
+			Tooltip.at(i) = PyList_New(0);
 
 		for (size_t i = 0; i < ITEM_SOCKET_SLOT_MAX_NUM; i++)
-			PyTuple_SetItem(Tuple.at(T_SOCKET), i, PyInt_FromLong(socket[i]));
+			PyList_Append(Tooltip.at(T_SOCKET), Py_BuildValue("i", socket[i]));
 
-		for (size_t i = 0; i < ITEM_ATTRIBUTE_SLOT_MAX_NUM; i++) {
-			PyTuple_SetItem(Tuple.at(T_TYPE), i, PyInt_FromLong(attr[i].bType));
-			PyTuple_SetItem(Tuple.at(T_VALUE), i, PyInt_FromLong(attr[i].sValue));
-		}
+		for (size_t i = 0; i < ITEM_ATTRIBUTE_SLOT_MAX_NUM; i++)
+			PyList_Append(Tooltip.at(T_ATTR), Py_BuildValue("[ii]", attr[i].bType, attr[i].sValue));
 	}
 	~TooltipData() {
-		for (const auto& v : Tuple)
+		for (const auto& v : Tooltip)
 			Py_DECREF(v);
 	}
 
-	enum TooltipEnum : size_t { T_SOCKET, T_TYPE, T_VALUE, T_MAX };
-	auto operator[] (const size_t& idx) const { return Tuple.at(idx); };
+	enum : size_t { T_SOCKET, T_ATTR, T_MAX };
+	auto operator[] (const size_t idx) const { return Tooltip.at(idx); };
 
 private:
-	std::array<PyObject*, T_MAX> Tuple;
+	std::array<PyObject*, T_MAX> Tooltip;
 };
 #endif

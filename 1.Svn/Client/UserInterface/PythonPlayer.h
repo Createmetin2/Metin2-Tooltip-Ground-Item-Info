@@ -21,7 +21,7 @@
 	
 ///Change
 #ifdef TOOLTIP_GROUND_ITEM
-		void	ClickRight(const int& eMBT);
+		void	ClickRight(const int eMBT);
 		void	SendClickItemPacket(DWORD dwIID, bool rclick = false);
 #else
 		void	SendClickItemPacket(DWORD dwIID);

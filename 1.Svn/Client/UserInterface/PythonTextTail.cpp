@@ -13,11 +13,7 @@ void CPythonTextTail::RegisterItemTextTail(DWORD VirtualID, const char * c_szTex
 	
 ///Add(endif)
 #if defined(TOOLTIP_GROUND_ITEM)
-	auto old = GetTooltipData(VirtualID);
-	if (old)
-		old.reset(new TooltipData(socket, attr)); // actually impossible
-	else
-		ItemTooltipMap.emplace(VirtualID, std::make_shared<TooltipData>(socket, attr));
+	ItemTooltipMap.emplace(VirtualID, std::make_shared<TooltipData>(socket, attr));
 #endif
 
 //Find

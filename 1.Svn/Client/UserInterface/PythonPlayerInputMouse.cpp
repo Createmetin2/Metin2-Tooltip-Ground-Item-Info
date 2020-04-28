@@ -11,7 +11,7 @@ bool CPythonPlayer::NEW_SetMouseState(int eMBT, int eMBS)
 
 ///Add anywhere
 #if defined(TOOLTIP_GROUND_ITEM)
-void CPythonPlayer::ClickRight(const int& eMBT)
+void CPythonPlayer::ClickRight(const int eMBT)
 {
 	const auto pkInstMain(NEW_GetMainActorPtr());
 	if (!pkInstMain) 

@@ -1,9 +1,15 @@
+///Add
+#if defined(TOOLTIP_GROUND_ITEM)
+#include "Tooltip.h"
+#include <unordered_map>
+#endif
+
 //Find
 		void ShowItemTextTail(DWORD VirtualID);
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		std::shared_ptr<TooltipData> GetTooltipData(const DWORD& id) { return ItemTooltipMap.find(id) == ItemTooltipMap.end() ? nullptr : ItemTooltipMap.at(id); };
+		const std::unordered_map<DWORD, std::shared_ptr<TooltipData>>& GetTooltipMap() const { return ItemTooltipMap; };
 #endif
 
 //Find
@@ -21,5 +27,5 @@
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-		std::map<DWORD, std::shared_ptr<TooltipData>> ItemTooltipMap;
+		std::unordered_map<DWORD, std::shared_ptr<TooltipData>> ItemTooltipMap;
 #endif

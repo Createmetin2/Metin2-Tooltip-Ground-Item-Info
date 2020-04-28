@@ -5,18 +5,16 @@
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-	if (rclick) {
-		CItemData* pItemData;
-		if (!CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData))
-			return;
-
-		const auto tooltip = CPythonTextTail::instance().GetTooltipData(dwIID);
-		if (!tooltip)
-			return;
-
-		PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("iiO[OO]i", TRUE, pItemData->GetTable()->dwVnum, 
-			tooltip->operator[](tooltip->T_SOCKET), tooltip->operator[](tooltip->T_TYPE), tooltip->operator[](tooltip->T_VALUE), dwIID));
-		return;
+	if (rclick) {	
+		try {
+			const auto& tooltip = CPythonTextTail::instance().GetTooltipMap().at(dwIID);
+			CItemData* pItemData;
+			if (CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData))
+				PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("ii[OO]i", TRUE, pItemData->GetTable()->dwVnum,
+			tooltip->operator[](tooltip->T_SOCKET), tooltip->operator[](tooltip->T_ATTR), dwIID));
+		}
+		catch (const std::out_of_range & err) { Tracenf("CPythonPlayer::SendClickItemPacket:Tooltip Info out_of_range (dwIID=%d) (what=> %s)", dwIID, err.what()); }
+		return; // rclick
 	}
 #endif
 
