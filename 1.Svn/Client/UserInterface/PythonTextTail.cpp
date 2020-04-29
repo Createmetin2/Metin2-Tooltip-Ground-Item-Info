@@ -25,17 +25,6 @@ void CPythonTextTail::RegisterItemTextTail(DWORD VirtualID, const char * c_szTex
 		ItemTooltipMap.erase(VirtualID);
 #endif
 
-//Find in : void CPythonTextTail::SetItemTextTailOwner(DWORD dwVID, const char * c_szName)
-	if (strlen(c_szName) > 0)
-	{
-		
-///Add
-#if defined(TOOLTIP_GROUND_ITEM)
-		const auto it = ItemTooltipMap.find(dwVID);
-		if (ItemTooltipMap.end() != it)
-			it->second->SetOwner(c_szName);
-#endif	
-
 //Find
 	m_ChatTailMap.clear();
 	
