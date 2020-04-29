@@ -32,7 +32,8 @@
 		
 #Add
 	if app.TOOLTIP_GROUND_ITEM:
-		def ShowItemFromClient(self, open, itemvnum = 0, data = 0, id = 0):
+		def ShowItemFromClient(self, open, itemvnum = 0, data = 0, id = 0, owner = ""):
+			ENABLE_OWNER_NAME = True
 			import uiToolTip
 			if self.tlground:
 				if open and self.TooltipData[2] == id:
@@ -47,3 +48,6 @@
 				self.tlground = uiToolTip.ItemToolTip()
 				self.tlground.SetToolTipPosition(pos_x + 5, pos_y - 5)
 				self.tlground.AddItemData(itemvnum, data[0], data[1])
+				if owner and ENABLE_OWNER_NAME:
+					self.tlground.AutoAppendTextLine("Owner: |cffADFF2F%s" % owner)
+					self.tlground.ResizeToolTip()
