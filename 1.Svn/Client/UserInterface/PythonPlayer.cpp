@@ -1,21 +1,21 @@
 //Find in void CPythonPlayer::SendClickItemPacket(DWORD dwIID)
-	if (dwCurTime >= s_dwNextTCPTime)
-	{
-		s_dwNextTCPTime=dwCurTime + 500;
+		const char * c_szOwnerName;
+		if (!CPythonItem::Instance().GetOwnership(dwIID, &c_szOwnerName))
+			return;
 		
 ///Add
 #if defined(TOOLTIP_GROUND_ITEM)
-	if (rclick) {	
-		try {
-			const auto& tooltip = CPythonTextTail::instance().GetTooltipMap().at(dwIID);
-			CItemData* pItemData;
-			if (CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData))
-				PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("ii[OO]i", TRUE, pItemData->GetTable()->dwVnum,
-			tooltip->operator[](tooltip->T_SOCKET), tooltip->operator[](tooltip->T_ATTR), dwIID));
+		if (rclick) {
+			try {
+				const auto& tooltip = CPythonTextTail::instance().GetTooltipMap().at(dwIID);
+				CItemData* pItemData;
+				if (CItemManager::Instance().GetItemDataPointer(CPythonItem::Instance().GetVirtualNumberOfGroundItem(dwIID), &pItemData))
+					PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("ii[OO]is", TRUE, pItemData->GetTable()->dwVnum,
+						tooltip->operator[](tooltip->T_SOCKET), tooltip->operator[](tooltip->T_ATTR), dwIID, c_szOwnerName));
+			}
+			catch (const std::out_of_range & err) { Tracenf("CPythonPlayer::SendClickItemPacket:Tooltip Info out_of_range (dwIID=%d) (what=> %s)", dwIID, err.what()); }
+			return; // rclick
 		}
-		catch (const std::out_of_range & err) { Tracenf("CPythonPlayer::SendClickItemPacket:Tooltip Info out_of_range (dwIID=%d) (what=> %s)", dwIID, err.what()); }
-		return; // rclick
-	}
 #endif
 
 //Find
