@@ -20,7 +20,7 @@ void CPythonPlayer::ClickRight(const int eMBT)
 	if (eMBT == MBT_RIGHT && __GetPickedItemID(&dwPickedItemID))
 		__OnPressItem(*pkInstMain, dwPickedItemID, true);
 	else
-		PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("(i)", FALSE));
+		PyCallClassMemberFunc(m_ppyGameWindow, "ShowItemFromClient", Py_BuildValue("(i)", false));
 }
 #endif
 
