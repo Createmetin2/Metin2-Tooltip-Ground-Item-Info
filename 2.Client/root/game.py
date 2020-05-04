@@ -23,7 +23,7 @@ if app.TOOLTIP_GROUND_ITEM:
 		self.interface.BUILD_OnUpdate()
 		
 #Add
-		if app.TOOLTIP_GROUND_ITEM and self.TooltipGroundItem.IsShow():
+		if app.TOOLTIP_GROUND_ITEM and self.TooltipGroundItem and self.TooltipGroundItem.IsShow():
 			(x, y, z) = player.GetMainCharacterPosition()
 			if abs(x - self.TooltipData[0]) > player.TOOLTIP_LIMIT_RANGE or abs(y - self.TooltipData[1]) > player.TOOLTIP_LIMIT_RANGE:
 				self.ShowItemFromClient(False)
