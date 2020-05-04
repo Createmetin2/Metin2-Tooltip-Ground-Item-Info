@@ -24,10 +24,9 @@ if app.TOOLTIP_GROUND_ITEM:
 		self.interface.BUILD_OnUpdate()
 		
 #Add
-		if app.TOOLTIP_GROUND_ITEM and self.TooltipGroundItem:
-			TOOLTIP_INFO_LIMIT_RANGE = 500 # change
+		if app.TOOLTIP_GROUND_ITEM and self.TooltipGroundItem.IsShow():
 			(x, y, z) = player.GetMainCharacterPosition()
-			if abs(x - self.TooltipData[0]) > TOOLTIP_INFO_LIMIT_RANGE or abs(y - self.TooltipData[1]) > TOOLTIP_INFO_LIMIT_RANGE:
+			if abs(x - self.TooltipData[0]) > player.TOOLTIP_LIMIT_RANGE or abs(y - self.TooltipData[1]) > player.TOOLTIP_LIMIT_RANGE:
 				self.ShowItemFromClient(False)
 #Find
 	def OnPressExitKey(self):
@@ -36,12 +35,10 @@ if app.TOOLTIP_GROUND_ITEM:
 		
 #Add
 	if app.TOOLTIP_GROUND_ITEM:
-		def ShowItemFromClient(self, open, itemvnum = 0, data = 0, id = 0, owner = ""):
-			ENABLE_OWNERNAME = True
-			
+		def ShowItemFromClient(self, open, itemvnum = 0, data = 0, id = 0, owner = ""):		
 			if not self.TooltipGroundItem:
 				self.TooltipGroundItem = uiToolTip.ItemToolTip()
-			if self.TooltipGroundItem.IsShow() and self.TooltipData[2] == id:
+			if open and self.TooltipGroundItem.IsShow() and self.TooltipData[2] == id:
 				return
 				
 			self.TooltipGroundItem.ClearToolTip()
@@ -53,6 +50,6 @@ if app.TOOLTIP_GROUND_ITEM:
 				pos_x, pos_y = wndMgr.GetMousePosition()
 				self.TooltipGroundItem.SetToolTipPosition(pos_x + 5, pos_y - 5)
 				self.TooltipGroundItem.AddItemData(itemvnum, data[0], data[1])
-				if owner and ENABLE_OWNERNAME:
-					self.TooltipGroundItem.AutoAppendTextLine("Owner: ", "|cffADFF2F")
+				if owner:
+					self.TooltipGroundItem.AutoAppendTextLine("Owner: |cffADFF2F{}".format(owner))
 					self.TooltipGroundItem.ResizeToolTip()
