@@ -35,7 +35,7 @@ if app.TOOLTIP_GROUND_ITEM:
 #Add
 	if app.TOOLTIP_GROUND_ITEM:
 		def ShowItemFromClient(self, open, itemvnum = 0, data = 0, id = 0, owner = ""):		
-			if not self.TooltipGroundItem:
+			if open and not self.TooltipGroundItem:
 				self.TooltipGroundItem = uiToolTip.ItemToolTip()
 			if open and self.TooltipGroundItem.IsShow() and self.TooltipData[2] == id:
 				return
