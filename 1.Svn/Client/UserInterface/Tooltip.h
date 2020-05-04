@@ -5,8 +5,14 @@
 class TooltipData
 {
 public:
+	enum config
+	{
+		TOOLTIP_LIMIT_DIST = 500,
+		OWNER_NAME = 1,
+	};
+
 	TooltipData(const long* socket, const TPlayerItemAttribute* attr)
-	{	
+	{
 		for (size_t i = T_SOCKET; i < T_MAX; i++)
 			Tooltip.at(i) = PyList_New(0);
 
@@ -16,14 +22,14 @@ public:
 		for (size_t i = 0; i < ITEM_ATTRIBUTE_SLOT_MAX_NUM; i++)
 			PyList_Append(Tooltip.at(T_ATTR), Py_BuildValue("[ii]", attr[i].bType, attr[i].sValue));
 	}
-	~TooltipData() 
+	~TooltipData()
 	{
 		for (const auto& v : Tooltip)
 			Py_DECREF(v);
 	}
 
 	enum : size_t { T_SOCKET, T_ATTR, T_MAX };
-	
+
 	auto operator[] (const size_t idx) const { return Tooltip.at(idx); };
 
 private:
