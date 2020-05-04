@@ -13,8 +13,7 @@ public:
 
 	TooltipData(const long* socket, const TPlayerItemAttribute* attr)
 	{
-		for (size_t i = T_SOCKET; i < T_MAX; i++)
-			Tooltip.at(i) = PyList_New(0);
+		std::generate(Tooltip.begin(), Tooltip.end(), []() { return PyList_New(0); });
 
 		for (size_t i = 0; i < ITEM_SOCKET_SLOT_MAX_NUM; i++)
 			PyList_Append(Tooltip.at(T_SOCKET), Py_BuildValue("i", socket[i]));
