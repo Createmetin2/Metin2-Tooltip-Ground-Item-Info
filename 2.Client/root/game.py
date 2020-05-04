@@ -15,8 +15,7 @@ if app.TOOLTIP_GROUND_ITEM:
 		
 #Add
 		if app.TOOLTIP_GROUND_ITEM:
-			if self.TooltipGroundItem: 
-				self.TooltipGroundItem.Hide()
+			if self.TooltipGroundItem:
 				self.TooltipGroundItem = None
 			self.TooltipData = [0] * 3
 			
